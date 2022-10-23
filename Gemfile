@@ -13,7 +13,10 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+#gem "puma", "~> 5.0"
+
+# Actually use Falcon as the web server because Puma is 💩
+gem "falcon"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
