@@ -3,11 +3,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  scope :attachments do
-    post '/upload' => 'attatchments#upload'
-    get '/:id' => 'attachments#get'
-    delete '/:id' => 'attachment#delete'
+
+  scope :tests do
+    get '/ping' => 'events#ping'
   end
+scope :attachments do
+  post '/upload' => 'attatchments#upload'
+  get '/:id' => 'attachments#get'
+  delete '/:id' => 'attachment#delete'
+end
 
   scope :auth do
     post '/' => 'auth#auth'
@@ -16,6 +20,20 @@ Rails.application.routes.draw do
     post '/info' => 'auth#info'
   end
 
+  scope :core do
+    scope :v4 do
+      get '/features' => 'core#features'
+    end
+  end
+
+  scope :api do
+    scope :challenge do
+      scope :v4 do
+        get '/html' => 'challenge#challenge'
+      end
+    end
+  end
+  
   scope :users do
     get '/' => 'users#get'
     post '/' => 'users#create'
@@ -87,8 +105,8 @@ Rails.application.routes.draw do
 
   scope :domains do
     get '/' => 'domains#get'
-    get '/:id' => 'domain#domain'
-    get '/available' => 'domain#available'
+    get '/:id' => 'domains#domain'
+    get '/available' => 'domains#available'
   end
 
   scope :addresses do
@@ -114,6 +132,12 @@ Rails.application.routes.draw do
   scope :bugs do
     scope :crash do
       get '/' => 'bugs#new'
+    end
+  end
+
+  scope :v1 do
+    scope :setup do
+      get '/' => 'server_setup#index'
     end
   end
 end
