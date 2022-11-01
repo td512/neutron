@@ -134,6 +134,10 @@ Rails.application.routes.draw do
       end
     end
 
+    scope :vpn do
+      get '/location' => 'vpn#location'
+    end
+
     scope :v1 do
       scope :setup do
         get '/' => 'server_setup#index'
