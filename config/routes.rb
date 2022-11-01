@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     scope :core do
       scope :v4 do
         get '/features' => 'core#features'
+        get '/experiments' => 'core#experiments'
       end
     end
 
@@ -118,6 +119,7 @@ Rails.application.routes.draw do
       get '/plans' => 'payments#plans'
       get '/subscriptions' => 'payments#subscriptions'
       get '/methods' => 'payments#methods'
+      get '/status' => 'payments#status'
     end
 
     scope :organizations do
@@ -136,6 +138,10 @@ Rails.application.routes.draw do
 
     scope :vpn do
       get '/location' => 'vpn#location'
+      get '/logicals' => 'vpn#logicals'
+      scope :countries do
+        get '/count' => 'vpn#country_count'
+      end
     end
 
     scope :v1 do
