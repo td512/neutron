@@ -55,7 +55,11 @@ scope :api do
 
   scope :core do
     scope :v4 do
+      scope :users do
+        get '/available' => 'core#username_available'
+      end
       scope :auth do
+        get '/modulus' => 'core#modulus'
         post '/cookies' => 'core#cookies'
       end
     end
@@ -68,12 +72,25 @@ scope :api do
     scope :countries do
       get '/count' => 'vpn#countries'
     end
+    scope :logicals do
+      get '/count' => 'vpn#countries'
+    end
+  end
+
+  scope :data do
+    scope :v1 do
+      post '/metrics' => 'data#metrics'
+    end
   end
 
   scope :payments do
     scope :v4 do
       get '/status' => 'payment#status'
       get '/plans' => 'payment#plans'
+      scope :subscription do
+        get '/' => 'payment#subscription'
+        post '/check' => 'payment#subscription'
+      end
     end
   end
 end
@@ -190,6 +207,9 @@ end
 
   scope :vpn do
     get '/location' => 'vpn#location'
+    scope :logicals do
+      get '/' => 'vpn#logicals'
+    end
     get '/logicals' => 'vpn#logicals'
     scope :countries do
       get '/count' => 'vpn#country_count'
