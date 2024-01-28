@@ -9,7 +9,5 @@ class ApplicationController < ActionController::Base
   end
 
   def set_default_cookies
-    session[:uid] = true
-    cookies[:Tag] ||= 'default'
   end
 end
