@@ -73,4 +73,12 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+# Add CORS Support
 gem 'rack-cors'
+
+# Add GeoIP Support
+gem "maxmind-geoip2"
+
+# Fix Cloudflare doing weird things to IPs
+gem "cloudflare-rails"

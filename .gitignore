@@ -32,3 +32,6 @@
 
 # Ignore JetBrains IDE files
 /.idea
+
+# Ignore GeoIP Files
+/config/geoip/*

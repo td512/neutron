@@ -10,3 +10,4 @@ class VpnController < ApplicationController
     render status: :ok, json: {Code: 1000, Counts: {'0': 0, '2': 0}}.to_json if params[:GroupBy]
   end
 end
+

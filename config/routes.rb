@@ -1,82 +1,91 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+# Defines the root path route ("/")
+# root "articles#index"
 
-  scope :tests do
-    get '/ping' => 'events#ping'
-  end
-scope :attachments do
-  post '/upload' => 'attatchments#upload'
-  get '/:id' => 'attachments#get'
-  delete '/:id' => 'attachment#delete'
+scope :tests do
+  get '/ping' => 'events#ping'
 end
 
-  scope :auth do
-    post '/' => 'auth#auth'
-    delete '/' => 'auth#delete'
-    post '/cookies' => 'auth#cookies'
-    post '/info' => 'auth#info'
+scope :attachments do
+post '/upload' => 'attatchments#upload'
+get '/:id' => 'attachments#get'
+delete '/:id' => 'attachment#delete'
+end
 
+scope :auth do
+  post '/' => 'auth#auth'
+  delete '/' => 'auth#delete'
+  post '/cookies' => 'auth#cookies'
+  post '/info' => 'auth#info'
+
+end
+
+scope :core do
+  scope :v4 do
+    get '/features' => 'core#features'
+  end
+end
+
+scope :api do
+  scope :domains do
+    get '/' => 'domains#get'
+    get '/:id' => 'domains#domain'
+    get '/available' => 'domains#available'
+  end
+
+  scope :feature do
+    scope :v2 do
+      get '/frontend' => 'feature#frontend'
+    end
+  end
+
+  scope :challenge do
+    scope :v4 do
+      get '/html' => 'challenge#challenge'
+    end
+  end
+
+  scope :auth do
+    scope :v4 do
+      post '/sessions' => 'auth#sessions'
+    end
   end
 
   scope :core do
     scope :v4 do
-      get '/features' => 'core#features'
-    end
-  end
-
-  scope :api do
-    scope :domains do
-      get '/' => 'domains#get'
-      get '/:id' => 'domains#domain'
-      get '/available' => 'domains#available'
-    end
-
-    scope :feature do
-      scope :v2 do
-        get '/frontend' => 'feature#frontend'
-      end
-    end
-
-    scope :challenge do
-      scope :v4 do
-        get '/html' => 'challenge#challenge'
-      end
-    end
-
-    scope :auth do
-      scope :v4 do
-        post '/sessions' => 'auth#sessions'
-      end
-    end
-
-    scope :core do
-      scope :v4 do
-        scope :auth do
-          post '/cookies' => 'core#cookies'
-        end
-      end
-    end
-
-    scope :vpn do
-      scope :v1 do
-        get '/servers-count' => 'vpn#servers'
-      end
-      scope :countries do
-        get '/count' => 'vpn#countries'
-      end
-    end
-
-    scope :payments do
-      scope :v4 do
-        get '/status' => 'payment#status'
-        get '/plans' => 'payment#plans'
+      scope :auth do
+        post '/cookies' => 'core#cookies'
       end
     end
   end
-  
+
+  scope :vpn do
+    scope :v1 do
+      get '/servers-count' => 'vpn#servers'
+    end
+    scope :countries do
+      get '/count' => 'vpn#countries'
+    end
+  end
+
+  scope :payments do
+    scope :v4 do
+      get '/status' => 'payment#status'
+      get '/plans' => 'payment#plans'
+    end
+  end
+end
+
+scope :users do
+  get '/' => 'users#get'
+  post '/' => 'users#create'
+  get '/direct' => 'users#direct'
+  get '/available/:username' => 'users#username_available'
+  get '/pubkeys/:email' => 'users#pubkeys'
+end
+
   scope :users do
     get '/' => 'users#get'
     post '/' => 'users#create'
@@ -162,6 +171,7 @@ end
     get '/plans' => 'payments#plans'
     get '/subscriptions' => 'payments#subscriptions'
     get '/methods' => 'payments#methods'
+    get '/status' => 'payments#status'
   end
 
   scope :organizations do
@@ -175,6 +185,14 @@ end
   scope :bugs do
     scope :crash do
       get '/' => 'bugs#new'
+    end
+  end
+
+  scope :vpn do
+    get '/location' => 'vpn#location'
+    get '/logicals' => 'vpn#logicals'
+    scope :countries do
+      get '/count' => 'vpn#country_count'
     end
   end
 
