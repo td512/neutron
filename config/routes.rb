@@ -18,6 +18,7 @@ end
     delete '/' => 'auth#delete'
     post '/cookies' => 'auth#cookies'
     post '/info' => 'auth#info'
+
   end
 
   scope :core do
@@ -27,9 +28,51 @@ end
   end
 
   scope :api do
+    scope :domains do
+      get '/' => 'domains#get'
+      get '/:id' => 'domains#domain'
+      get '/available' => 'domains#available'
+    end
+
+    scope :feature do
+      scope :v2 do
+        get '/frontend' => 'feature#frontend'
+      end
+    end
+
     scope :challenge do
       scope :v4 do
         get '/html' => 'challenge#challenge'
+      end
+    end
+
+    scope :auth do
+      scope :v4 do
+        post '/sessions' => 'auth#sessions'
+      end
+    end
+
+    scope :core do
+      scope :v4 do
+        scope :auth do
+          post '/cookies' => 'core#cookies'
+        end
+      end
+    end
+
+    scope :vpn do
+      scope :v1 do
+        get '/servers-count' => 'vpn#servers'
+      end
+      scope :countries do
+        get '/count' => 'vpn#countries'
+      end
+    end
+
+    scope :payments do
+      scope :v4 do
+        get '/status' => 'payment#status'
+        get '/plans' => 'payment#plans'
       end
     end
   end
