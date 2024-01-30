@@ -9,7 +9,7 @@ class PaymentController < ApplicationController
   end
 
   def plans
-    render status: :ok, json: {
+    payload =  {
       "Code": 1000,
       "Plans": [
         {
@@ -60,6 +60,9 @@ class PaymentController < ApplicationController
           }
         }
       ]
-    }.to_json
+    }
+
+
+    render status: :ok, json: payload.to_json
   end
 end

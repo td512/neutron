@@ -35,3 +35,4 @@
 
 # Ignore GeoIP Files
 /config/geoip/*
+config/application.yml

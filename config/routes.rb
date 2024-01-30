@@ -53,14 +53,15 @@ scope :api do
     end
   end
 
-  scope :core do
-    scope :v4 do
+  namespace :core do
+    namespace :v4 do
       scope :users do
-        get '/available' => 'core#username_available'
+        post '/' => 'users#create'
+        get :available, to: 'users#username_available'
       end
       scope :auth do
-        get '/modulus' => 'core#modulus'
-        post '/cookies' => 'core#cookies'
+        get '/modulus' => 'auth#modulus'
+        post '/cookies' => 'auth#cookies'
       end
     end
   end

@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_28_210319) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_28_210319) do
+  create_schema "_timescaledb_cache"
+  create_schema "_timescaledb_catalog"
+  create_schema "_timescaledb_config"
+  create_schema "_timescaledb_functions"
+  create_schema "_timescaledb_internal"
+  create_schema "timescaledb_experimental"
+  create_schema "timescaledb_information"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "timescaledb"
 
   create_table "email_addresses", force: :cascade do |t|
     t.integer "owner"
