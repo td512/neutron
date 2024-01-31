@@ -56,8 +56,8 @@ scope :api do
   namespace :core do
     namespace :v4 do
       scope :users do
-        post '/' => 'users#create'
-        get :available, to: 'users#username_available'
+        get '/available' => 'core#username_available'
+        post '/' => 'core#captcha'
       end
       scope :auth do
         get '/modulus' => 'auth#modulus'
