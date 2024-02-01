@@ -1,108 +1,111 @@
 Rails.application.routes.draw do
-# Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-# Defines the root path route ("/")
-# root "articles#index"
+  # Defines the root path route ("/")
+  # root "articles#index"
 
-scope :tests do
-  get '/ping' => 'events#ping'
-end
-
-scope :attachments do
-post '/upload' => 'attatchments#upload'
-get '/:id' => 'attachments#get'
-delete '/:id' => 'attachment#delete'
-end
-
-scope :auth do
-  post '/' => 'auth#auth'
-  delete '/' => 'auth#delete'
-  post '/cookies' => 'auth#cookies'
-  post '/info' => 'auth#info'
-
-end
-
-scope :core do
-  scope :v4 do
-    get '/features' => 'core#features'
-  end
-end
-
-scope :api do
-  scope :domains do
-    get '/' => 'domains#get'
-    get '/:id' => 'domains#domain'
-    get '/available' => 'domains#available'
-  end
-
-  scope :feature do
-    scope :v2 do
-      get '/frontend' => 'feature#frontend'
+  scope :api do
+    namespace :core do
+      namespace :v4 do
+        scope :users do
+          post '/', to: 'users#create'
+          get :available, to: 'users#username_available'
+        end
+        scope :auth do
+          get :modulus, to: 'auth#modulus'
+          post :cookies, to: 'auth#cookies'
+          post :info, to: 'users#info'
+        end
+      end
     end
   end
 
-  scope :challenge do
-    scope :v4 do
-      get '/html' => 'challenge#challenge'
-    end
+  scope :tests do
+    get '/ping' => 'events#ping'
+  end
+
+  scope :attachments do
+    post '/upload' => 'attatchments#upload'
+    get '/:id' => 'attachments#get'
+    delete '/:id' => 'attachment#delete'
   end
 
   scope :auth do
+    post '/' => 'auth#auth'
+    delete '/' => 'auth#delete'
+    post '/cookies' => 'auth#cookies'
+    post '/info' => 'auth#info'
+
+  end
+
+  scope :core do
     scope :v4 do
-      post '/sessions' => 'auth#sessions'
+      get '/features' => 'core#features'
     end
   end
 
-  namespace :core do
-    namespace :v4 do
-      scope :users do
-        get '/available' => 'core#username_available'
-        post '/' => 'core#captcha'
-      end
-      scope :auth do
-        get '/modulus' => 'auth#modulus'
-        post '/cookies' => 'auth#cookies'
-      end
+  scope :api do
+    scope :domains do
+      get '/' => 'domains#get'
+      get '/:id' => 'domains#domain'
+      get '/available' => 'domains#available'
     end
-  end
 
-  scope :vpn do
-    scope :v1 do
-      get '/servers-count' => 'vpn#servers'
-    end
-    scope :countries do
-      get '/count' => 'vpn#countries'
-    end
-    scope :logicals do
-      get '/count' => 'vpn#countries'
-    end
-  end
-
-  scope :data do
-    scope :v1 do
-      post '/metrics' => 'data#metrics'
-    end
-  end
-
-  scope :payments do
-    scope :v4 do
-      get '/status' => 'payment#status'
-      get '/plans' => 'payment#plans'
-      scope :subscription do
-        get '/' => 'payment#subscription'
-        post '/check' => 'payment#subscription'
+    scope :feature do
+      scope :v2 do
+        get '/frontend' => 'feature#frontend'
       end
     end
-  end
-end
 
-scope :users do
-  get '/' => 'users#get'
-  post '/' => 'users#create'
-  get '/direct' => 'users#direct'
-  get '/available/:username' => 'users#username_available'
-  get '/pubkeys/:email' => 'users#pubkeys'
-end
+    scope :challenge do
+      scope :v4 do
+        get '/html' => 'challenge#challenge'
+      end
+    end
+
+    scope :auth do
+      scope :v4 do
+        post '/sessions' => 'auth#sessions'
+      end
+    end
+
+    scope :vpn do
+      scope :v1 do
+        get '/servers-count' => 'vpn#servers'
+      end
+      scope :countries do
+        get '/count' => 'vpn#countries'
+      end
+      scope :logicals do
+        get '/count' => 'vpn#countries'
+      end
+    end
+
+    scope :data do
+      scope :v1 do
+        post '/metrics' => 'data#metrics'
+      end
+    end
+
+    scope :payments do
+      scope :v4 do
+        get '/status' => 'payment#status'
+        get '/plans' => 'payment#plans'
+        scope :subscription do
+          get '/' => 'payment#subscription'
+          post '/check' => 'payment#subscription'
+        end
+      end
+    end
+  end
+
+  scope :users do
+    get '/' => 'users#get'
+    post '/' => 'users#create'
+    get '/direct' => 'users#direct'
+    get '/available/:username' => 'users#username_available'
+    get '/pubkeys/:email' => 'users#pubkeys'
+  end
 
   scope :users do
     get '/' => 'users#get'

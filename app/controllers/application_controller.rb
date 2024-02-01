@@ -9,5 +9,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_default_cookies
+
+    puts "Session ID: #{session[:id]}" if Rails.env.development?
+
+    # check if the user has a session cookie
+    return unless session[:id].blank?
+
+    # if not, set a new session cookie
+    session[:id] = SecureRandom.uuid
   end
 end
